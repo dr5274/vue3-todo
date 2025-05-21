@@ -49,23 +49,17 @@ function onKeyDown(e) {
   }
 }
 
+function onToggleCompleted(todo) {
+  todo.completed = !todo.completed
+  // todos.value = ref([...todos])
+}
+
 function onToggleAll() {
   todos.forEach((todo) => {
     todo.completed = !todo.completed
   })
-  todos.value = todos
+  // todos.value = todos
 }
-
-function onToggleCompleted(id) {
-  const todo = todos.find((todo) => todo.id === id)
-  todo.completed = !todo.completed
-  todos.value = ref([...todos])
-}
-
-function onRemoveTodo(id) {
-  removeTodo(id)
-}
-
 function onClearCompleted() {
   todos.forEach((todo) => {
     if (todo.completed) {
@@ -75,14 +69,17 @@ function onClearCompleted() {
   todos.value = todos
 }
 
-function onStartEdit() {
+function onStartEdit(todo) {
   canToggle.value = false
 }
 
-function onEndEdit(id, title) {
-  const todo = todos.find((todo) => todo.id === id)
+function onEndEdit({ todo, title }) {
   todo.title = title
   canToggle.value = true
+}
+
+function onRemoveTodo(todo) {
+  removeTodo(todo.id)
 }
 </script>
 
@@ -97,11 +94,11 @@ function onEndEdit(id, title) {
       :todos="filteredTodos.value"
       :canToggle="canToggle"
       :allCompleted="allCompleted"
-      :onToggleAll="onToggleAll"
-      :onToggleCompleted="onToggleCompleted"
-      :onRemoveTodo="onRemoveTodo"
-      :onStartEdit="onStartEdit"
-      :onEndEdit="onEndEdit"
+      @onToggleCompleted="onToggleCompleted"
+      @onToggleAll="onToggleAll"
+      @onStartEdit="onStartEdit"
+      @onEndEdit="onEndEdit"
+      @onRemoveTodo="onRemoveTodo"
     />
 
     <footer v-if="allTodos.length" class="footer">
