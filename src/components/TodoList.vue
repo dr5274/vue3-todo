@@ -1,6 +1,7 @@
 <script setup>
 import { toRefs } from 'vue'
 import TodoItem from '@/components/TodoItem'
+
 const props = defineProps(['todos', 'canToggle', 'allCompleted'])
 const { todos, canToggle, allCompleted } = toRefs(props)
 const emit = defineEmits([

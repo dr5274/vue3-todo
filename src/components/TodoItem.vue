@@ -1,5 +1,6 @@
 <script setup>
 import { ref, toRefs } from 'vue'
+
 const props = defineProps(['todo'])
 const { todo } = toRefs(props)
 const emit = defineEmits(['onToggleCompleted', 'onStartEdit', 'onEndEdit', 'onRemoveTodo'])

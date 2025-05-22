@@ -51,14 +51,12 @@ function onKeyDown(e) {
 
 function onToggleCompleted(todo) {
   todo.completed = !todo.completed
-  // todos.value = ref([...todos])
 }
 
 function onToggleAll() {
   todos.forEach((todo) => {
     todo.completed = !todo.completed
   })
-  // todos.value = todos
 }
 function onClearCompleted() {
   todos.forEach((todo) => {
@@ -69,7 +67,7 @@ function onClearCompleted() {
   todos.value = todos
 }
 
-function onStartEdit(todo) {
+function onStartEdit(/* todo */) {
   canToggle.value = false
 }
 
@@ -91,7 +89,7 @@ function onRemoveTodo(todo) {
     </header>
 
     <TodoList
-      :todos="filteredTodos.value"
+      :todos="filteredTodos"
       :canToggle="canToggle"
       :allCompleted="allCompleted"
       @onToggleCompleted="onToggleCompleted"
