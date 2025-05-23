@@ -1,83 +1,83 @@
 <script setup>
-import { useRoute } from 'vue-router'
-import { useTodoStore } from '@/stores/todos'
-import { ref, computed } from 'vue'
-import TodoList from '@/components/TodoList'
+import { useRoute } from 'vue-router';
+import { useTodoStore } from '@/stores/todos';
+import { ref, computed } from 'vue';
+import TodoList from '@/components/TodoList';
 
-const route = useRoute()
-const { todos, createTodo, removeTodo } = useTodoStore()
-let canToggle = ref(true)
+const route = useRoute();
+const { todos, createTodo, removeTodo } = useTodoStore();
+let canToggle = ref(true);
 
 const allTodos = computed(() => {
   // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-  return todos.sort((a, b) => a.id - b.id)
-})
+  return todos.sort((a, b) => a.id - b.id);
+});
 
 const activeTodos = computed(() => {
-  return todos.filter((todo) => !todo.completed)
-})
+  return todos.filter((todo) => !todo.completed);
+});
 
 const completedTodos = computed(() => {
-  return todos.filter((todo) => todo.completed)
-})
+  return todos.filter((todo) => todo.completed);
+});
 
 const filteredTodos = computed(() => {
   switch (route.path) {
     case '/':
     default:
-      return allTodos
+      return allTodos;
 
     case '/active':
-      return activeTodos
+      return activeTodos;
 
     case '/completed':
-      return completedTodos
+      return completedTodos;
   }
-})
+});
 
 const allCompleted = computed(() => {
-  return activeTodos.value.length === 0
-})
+  return activeTodos.value.length === 0;
+});
 
 function onKeyDown(e) {
   if (e.keyCode === 13 && !!e.target.value) {
     createTodo({
       title: e.target.value.trim(),
       completed: false,
-    })
-    e.target.value = ''
+    });
+    e.target.value = '';
   }
 }
 
 function onToggleCompleted(todo) {
-  todo.completed = !todo.completed
+  todo.completed = !todo.completed;
 }
 
 function onToggleAll() {
   todos.forEach((todo) => {
-    todo.completed = !todo.completed
-  })
+    todo.completed = !todo.completed;
+  });
 }
 function onClearCompleted() {
   todos.forEach((todo) => {
     if (todo.completed) {
-      removeTodo(todo.id)
+      removeTodo(todo.id);
     }
-  })
-  todos.value = todos
+  });
+  todos.value = todos;
 }
 
 function onStartEdit(/* todo */) {
-  canToggle.value = false
+  canToggle.value = false;
 }
 
 function onEndEdit({ todo, title }) {
-  todo.title = title
-  canToggle.value = true
+  todo.title = title;
+  canToggle.value = true;
 }
 
 function onRemoveTodo(todo) {
-  removeTodo(todo.id)
+  removeTodo(todo.id);
 }
 </script>
 

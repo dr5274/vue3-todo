@@ -1,35 +1,35 @@
 <script setup>
-import { toRefs } from 'vue'
-import TodoItem from '@/components/TodoItem'
+import { toRefs } from 'vue';
+import TodoItem from '@/components/TodoItem';
 
-const props = defineProps(['todos', 'canToggle', 'allCompleted'])
-const { todos, canToggle, allCompleted } = toRefs(props)
+const props = defineProps(['todos', 'canToggle', 'allCompleted']);
+const { todos, canToggle, allCompleted } = toRefs(props);
 const emit = defineEmits([
   'onToggleCompleted',
   'onToggleAll',
   'onStartEdit',
   'onEndEdit',
   'onRemoveTodo',
-])
+]);
 
 function onToggleCompleted(todo) {
-  emit('onToggleCompleted', todo)
+  emit('onToggleCompleted', todo);
 }
 
 function onToggleAll() {
-  emit('onToggleAll')
+  emit('onToggleAll');
 }
 
 function onStartEdit(todo) {
-  emit('onStartEdit', todo)
+  emit('onStartEdit', todo);
 }
 
 function onEndEdit({ todo, title }) {
-  emit('onEndEdit', { todo, title })
+  emit('onEndEdit', { todo, title });
 }
 
 function onRemoveTodo(todo) {
-  emit('onRemoveTodo', todo)
+  emit('onRemoveTodo', todo);
 }
 </script>
 
